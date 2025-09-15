@@ -5,10 +5,9 @@ $day-size: 100px; // розмір дня (включно з border)
 $day-border: 1px; // товщина рамки
 $gap: 1px; // проміжок між днями
 $columns: 7; // кількість колонок у календарі
-$side-padding: 10px; // бокові відступи
-$grid-width: calc(
-  #{$columns} * #{$day-size} + (#{$columns} - 1) * #{$gap} + 2 * #{$side-padding}
-);
+$total-horizontal-padding: 10px; // сумарний відступ ліворуч+праворуч
+$side-padding: $total-horizontal-padding / 2;
+$grid-width: calc((#{$columns} * #{$day-size}) + ((#{$columns} - 1) * #{$gap}) + #{$total-horizontal-padding});
 $day-bg: #eee; // фон дня
 $day-hover-bg: #ffbfcb; // фон при ховері
 $day-border-color: #000; // колір рамки
@@ -44,7 +43,7 @@ body {
     flex-wrap: wrap;
     gap: $gap;
     width: $grid-width;
-    padding: 0 $side-padding;
+    padding: 0 $side-padding; // бокові відступи
     align-content: flex-start;
   }
 
@@ -58,9 +57,7 @@ body {
     align-items: center;
     justify-content: center;
     overflow: visible;
-    transition:
-      transform 0.5s,
-      background-color 0.5s;
+    transition: transform 0.5s, background-color 0.5s;
     cursor: default;
 
     &::before {
@@ -95,7 +92,7 @@ $start-map: (
   thu: 4,
   fri: 5,
   sat: 6,
-  sun: 7,
+  sun: 7
 );
 
 @each $name, $index in $start-map {
@@ -125,8 +122,3 @@ $start-map: (
     content: '#{$i}';
   }
 }
-
-// =====================================================
-// 7. Додаткові дрібні стилі
-// =====================================================
-// (забрали дублюючий .calendar__day:hover)
